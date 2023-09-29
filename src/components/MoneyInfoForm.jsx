@@ -1,4 +1,4 @@
-import { Form, Input } from "antd";
+import { Form, Input, Card } from "antd";
 
 import "../css/GeneralInfoForm.css";
 import PropTypes from "prop-types"; // Importa PropTypes
@@ -15,66 +15,68 @@ const MoneyInfoForm = ({ setFormDataMoneyInfo, formDataMoneyInfo }) => {
   return (
     <div>
       <div className="container">
-        <div className="centered-form">
-          <Form
-            className="GeneralInfoForm"
-            name="basic"
-            labelCol={{
-              span: 8,
-            }}
-            wrapperCol={{
-              span: 16,
-            }}
-            style={{
-              maxWidth: 600,
-            }}
-            initialValues={{
-              remember: true,
-            }}
-            autoComplete="off"
-          >
-            <Form.Item
-              label="Mensualidad"
-              name="month"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your username!",
-                },
-              ]}
-            >
-              <Input
-                onChange={(e) =>
-                  handleInputChangeGeneralInfoForm("month", e.target.value)
-                }
-              />
-            </Form.Item>
-
-            <Form.Item
-              label="Anualidad"
-              name="year"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password!",
-                },
-              ]}
-            >
-              <Input
-                onChange={(e) =>
-                  handleInputChangeGeneralInfoForm("year", e.target.value)
-                }
-              />
-            </Form.Item>
-
-            <Form.Item
+        <Card title="2 - Informacion Financiera" bordered={true}>
+          <div className="centered-form">
+            <Form
+              className="GeneralInfoForm"
+              name="basic"
+              labelCol={{
+                span: 8,
+              }}
               wrapperCol={{
-                offset: 8,
                 span: 16,
               }}
-            ></Form.Item>
-          </Form>
-        </div>
+              style={{
+                maxWidth: 600,
+              }}
+              initialValues={{
+                remember: true,
+              }}
+              autoComplete="off"
+            >
+              <Form.Item
+                label="Mensualidad"
+                name="month"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your username!",
+                  },
+                ]}
+              >
+                <Input
+                  onChange={(e) =>
+                    handleInputChangeGeneralInfoForm("month", e.target.value)
+                  }
+                />
+              </Form.Item>
+
+              <Form.Item
+                label="Anualidad"
+                name="year"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your password!",
+                  },
+                ]}
+              >
+                <Input
+                  onChange={(e) =>
+                    handleInputChangeGeneralInfoForm("year", e.target.value)
+                  }
+                />
+              </Form.Item>
+
+              <Form.Item
+                wrapperCol={{
+                  offset: 8,
+                  span: 16,
+                }}
+              ></Form.Item>
+            </Form>
+          </div>
+        </Card>
       </div>
     </div>
   );

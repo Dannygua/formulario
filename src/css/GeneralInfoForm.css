@@ -1,9 +1,9 @@
 .GeneralInfoForm {
     margin: 30px;
     width: 100%;
-
-     /* Ajusta el valor de acuerdo a tus necesidades */
   }
+
+
 
 .CarouselForm {
     text-align: center;
@@ -21,8 +21,9 @@
   .centered-form {
     width: 800PX; /* Establece el ancho deseado para el formulario */
     padding: 20px; /* Agrega relleno si es necesario */
-    border: 1px solid #d9d9d9; /* Agrega un borde si es necesario */
+    border: 0px solid black; /* Agrega un borde si es necesario */
     background-color: #fff; /* Cambia el fondo si es necesario */
     height: auto;
     text-align: center;
+    color: black;
   }

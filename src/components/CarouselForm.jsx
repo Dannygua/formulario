@@ -3,6 +3,7 @@ import { useState } from "react";
 import GeneralInfoForm from "./GeneralInfoForm";
 import "../css/GeneralInfoForm.css";
 import MoneyInfoForm from "./MoneyInfoForm";
+
 const CarouselForm = () => {
   const [formDataGeneralInfo, setFormDataGeneralInfo] = useState({});
   const [formDataMoneyInfo, setFormDataMoneyInfo] = useState({});
@@ -18,7 +19,7 @@ const CarouselForm = () => {
     color: "#fff",
     lineHeight: "160px",
     textAlign: "center",
-    background: "#364d79",
+    background: "rgba(251, 176, 59, 1)",
   };
   const onChange = (currentSlide) => {
     console.log(currentSlide);
