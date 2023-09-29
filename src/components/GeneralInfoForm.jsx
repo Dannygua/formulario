@@ -1,8 +1,18 @@
 import { Form, Input, Col, Row, DatePicker, Select, Card } from "antd";
 import "../css/GeneralInfoForm.css";
 import PropTypes from "prop-types"; // Importa PropTypes
+import { useEffect } from "react";
+import GenericSelect from "./GenericSelect";
 
-const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
+const GeneralInfoForm = ({
+  setFormDataGeneralInfo,
+  formDataGeneralInfo,
+  dataCatalogo,
+  setLoading,
+  loading,
+  fetchDataCatalogo,
+  DataGeneralInfo,
+}) => {
   const handleInputChangeGeneralInfoForm = (fieldName, value) => {
     // Actualizar el objeto formData con el nuevo valor
     setFormDataGeneralInfo({
@@ -10,11 +20,27 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
       [fieldName]: value,
     });
   };
+  useEffect(() => {
+    console.log("Data");
+    console.log(loading);
+    console.log(dataCatalogo);
+  }, [dataCatalogo, loading]);
 
   return (
     <div>
+      {/* <div>
+        <GenericSelect loading={loading} dataCatalogo={dataCatalogo} />
+      </div> */}
       <div className="container">
-        <Card title="1 - Informacion General" bordered={true}>
+        <Card
+          className="CardGeneralForm"
+          title={
+            <span className="TitleCard">
+              <span className="NumberTitleCard">1</span> Información general
+            </span>
+          }
+          bordered={true}
+        >
           <div className="centered-form">
             <Form
               className="GeneralInfoForm"
@@ -25,9 +51,6 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
               wrapperCol={{
                 span: 22,
               }}
-              initialValues={{
-                remember: true,
-              }}
               autoComplete="off"
               layout="vertical"
             >
@@ -35,6 +58,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                 <Col span={12}>
                   {" "}
                   <Form.Item
+                    className="LabelGeneralInfo"
                     label="Apellido"
                     name="lastname"
                     rules={[
@@ -45,13 +69,15 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                     ]}
                   >
                     <Input
-                      onChange={(e) =>
+                      placeholder="Ingresa tus apellidos"
+                      onChange={(e) => {
                         handleInputChangeGeneralInfoForm(
                           "lastname",
                           e.target.value
-                        )
-                      }
+                        );
+                      }}
                     />
+                    {loading ? DataGeneralInfo.name : ""}
                   </Form.Item>
                 </Col>
                 <Col span={12}>
@@ -59,6 +85,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                   <Form.Item
                     label="Nombre"
                     name="firstname"
+                    colon={false}
                     rules={[
                       {
                         required: true,
@@ -67,6 +94,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                     ]}
                   >
                     <Input
+                      placeholder="Ingresa tus nombres"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
                           "firstname",
@@ -74,6 +102,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                         )
                       }
                     />
+                    {loading ? DataGeneralInfo.base_experience : ""}
                   </Form.Item>
                 </Col>
               </Row>
@@ -92,6 +121,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                     ]}
                   >
                     <Input
+                      placeholder="Selecciona tu nacionalidad"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
                           "nationality",
@@ -99,6 +129,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                         )
                       }
                     />
+                    {loading ? DataGeneralInfo.id : ""}
                   </Form.Item>
                 </Col>
                 <Col span={12}>
@@ -114,6 +145,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                     ]}
                   >
                     <Input
+                      placeholder="Ingresa tu CI/ Pasaporte"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
                           "passport",
@@ -121,6 +153,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                         )
                       }
                     />
+                    {loading ? DataGeneralInfo.order : ""}
                   </Form.Item>
                 </Col>
               </Row>
@@ -139,6 +172,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                     ]}
                   >
                     <DatePicker
+                      className="DataPickerClass"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
                           "birthdate",
@@ -161,6 +195,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                     ]}
                   >
                     <Input
+                      placeholder="Ingresa tu Genero"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
                           "gender",
@@ -186,6 +221,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                     ]}
                   >
                     <Select
+                      placeholder="Ingresa tu Estado Civil"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
                           "civilstate",
@@ -211,6 +247,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                     ]}
                   >
                     <Input
+                      placeholder="Ingresa tu Profesion"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
                           "profession",
@@ -236,15 +273,20 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                     ]}
                   >
                     <Select
-                      onChange={(e) =>
-                        handleInputChangeGeneralInfoForm(
-                          "province",
-                          e.target.value
-                        )
-                      }
+                      placeholder="Ingresa tu Provincia"
+                      onChange={(value) => {
+                        fetchDataCatalogo({
+                          token_id:
+                            "P6C917uy64vZORdyh2aWqBTLDxZMl0WfFEYwFEoQxMtczD3JUWVjO6fvZf0yfYz0",
+                          Nivel: 3,
+                          idCatalogo: 13,
+                          CodigoPadre: value,
+                        });
+                        handleInputChangeGeneralInfoForm("province", value);
+                      }}
                     >
-                      <Select.Option value="Casado">Casado</Select.Option>
-                      <Select.Option value="Soltero">Soltero</Select.Option>
+                      <Select.Option value="744">Ecuador</Select.Option>
+                      <Select.Option value="727">Chile</Select.Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -261,13 +303,11 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                     ]}
                   >
                     <Select
+                      placeholder="Ingresa tu Ciudad"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm("city", e.target.value)
                       }
-                    >
-                      <Select.Option value="Casado">Casado</Select.Option>
-                      <Select.Option value="Soltero">Soltero</Select.Option>
-                    </Select>
+                    ></Select>
                   </Form.Item>
                 </Col>
               </Row>
@@ -289,6 +329,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                     ]}
                   >
                     <Input
+                      placeholder="Ingresa tu domicilio"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
                           "homeAddress",
@@ -314,6 +355,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                     ]}
                   >
                     <Input
+                      placeholder="Ingresa tu residencia"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
                           "residenceTime",
@@ -336,6 +378,7 @@ const GeneralInfoForm = ({ setFormDataGeneralInfo, formDataGeneralInfo }) => {
                     ]}
                   >
                     <Input
+                      placeholder="Ingresa tu numero de teléfono"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
                           "phoneNumber",

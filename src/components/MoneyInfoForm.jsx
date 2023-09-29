@@ -11,9 +11,9 @@ const MoneyInfoForm = ({ setFormDataMoneyInfo, formDataMoneyInfo }) => {
       [fieldName]: value,
     });
   };
-
   return (
     <div>
+      {" "}
       <div className="container">
         <Card title="2 - Informacion Financiera" bordered={true}>
           <div className="centered-form">
