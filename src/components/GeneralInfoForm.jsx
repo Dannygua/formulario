@@ -1,36 +1,37 @@
 import { Form, Input, Col, Row, DatePicker, Select, Card } from "antd";
 import "../css/GeneralInfoForm.css";
-import PropTypes from "prop-types"; // Importa PropTypes
-import { useEffect } from "react";
-import GenericSelect from "./GenericSelect";
+import { useGeneralVariables } from "../hooks/GeneralContext";
+import { useEffect, useState } from "react";
+import { Catalog } from "../api/CatalogMethods";
 
-const GeneralInfoForm = ({
-  setFormDataGeneralInfo,
-  formDataGeneralInfo,
-  dataCatalogo,
-  setLoading,
-  loading,
-  fetchDataCatalogo,
-  DataGeneralInfo,
-}) => {
+const GeneralInfoForm = () => {
+  const { ChangeFormDataGeneralInfo, formDataGeneralInfo } =
+    useGeneralVariables();
   const handleInputChangeGeneralInfoForm = (fieldName, value) => {
     // Actualizar el objeto formData con el nuevo valor
-    setFormDataGeneralInfo({
+    ChangeFormDataGeneralInfo({
       ...formDataGeneralInfo,
       [fieldName]: value,
     });
   };
+
+  const CatalogController = new Catalog();
+  const [provinceCatalog, setProvinceCatalog] = useState({});
+
+  const ChangeCatalog = async (CatalogData) => {
+    const response = await CatalogController.getCatalog(CatalogData);
+    setProvinceCatalog(response?.ResultSets?.Table1); // Actualiza el estado con los datos
+    console.log(response);
+    return response;
+  };
+
   useEffect(() => {
     console.log("Data");
-    console.log(loading);
-    console.log(dataCatalogo);
-  }, [dataCatalogo, loading]);
+    console.log(provinceCatalog);
+  }, [provinceCatalog]);
 
   return (
     <div>
-      {/* <div>
-        <GenericSelect loading={loading} dataCatalogo={dataCatalogo} />
-      </div> */}
       <div className="container">
         <Card
           className="CardGeneralForm"
@@ -77,7 +78,6 @@ const GeneralInfoForm = ({
                         );
                       }}
                     />
-                    {loading ? DataGeneralInfo.name : ""}
                   </Form.Item>
                 </Col>
                 <Col span={12}>
@@ -102,7 +102,6 @@ const GeneralInfoForm = ({
                         )
                       }
                     />
-                    {loading ? DataGeneralInfo.base_experience : ""}
                   </Form.Item>
                 </Col>
               </Row>
@@ -129,7 +128,6 @@ const GeneralInfoForm = ({
                         )
                       }
                     />
-                    {loading ? DataGeneralInfo.id : ""}
                   </Form.Item>
                 </Col>
                 <Col span={12}>
@@ -153,7 +151,7 @@ const GeneralInfoForm = ({
                         )
                       }
                     />
-                    {loading ? DataGeneralInfo.order : ""}
+                    {/* {loading ? DataGeneralInfo?.order : ""} */}
                   </Form.Item>
                 </Col>
               </Row>
@@ -275,7 +273,7 @@ const GeneralInfoForm = ({
                     <Select
                       placeholder="Ingresa tu Provincia"
                       onChange={(value) => {
-                        fetchDataCatalogo({
+                        ChangeCatalog({
                           token_id:
                             "P6C917uy64vZORdyh2aWqBTLDxZMl0WfFEYwFEoQxMtczD3JUWVjO6fvZf0yfYz0",
                           Nivel: 3,
@@ -402,11 +400,6 @@ const GeneralInfoForm = ({
       </div>
     </div>
   );
-};
-
-GeneralInfoForm.propTypes = {
-  formDataGeneralInfo: PropTypes.object.isRequired, // Asegúrate de que formData sea un objeto y sea requerido
-  setFormDataGeneralInfo: PropTypes.func.isRequired, // Asegúrate de que formData sea un objeto y sea requerido
 };
 
 export default GeneralInfoForm;

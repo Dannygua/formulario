@@ -1,16 +1,18 @@
 import { Form, Input, Card } from "antd";
-
+import { useGeneralVariables } from "../hooks/GeneralContext";
 import "../css/GeneralInfoForm.css";
-import PropTypes from "prop-types"; // Importa PropTypes
 
-const MoneyInfoForm = ({ setFormDataMoneyInfo, formDataMoneyInfo }) => {
+const MoneyInfoForm = () => {
+  const { ChangeFormDataMoneyInfo, formDataMoneyInfo } = useGeneralVariables();
+
   const handleInputChangeGeneralInfoForm = (fieldName, value) => {
     // Actualizar el objeto formData con el nuevo valor
-    setFormDataMoneyInfo({
+    ChangeFormDataMoneyInfo({
       ...formDataMoneyInfo,
       [fieldName]: value,
     });
   };
+
   return (
     <div>
       {" "}
@@ -80,11 +82,6 @@ const MoneyInfoForm = ({ setFormDataMoneyInfo, formDataMoneyInfo }) => {
       </div>
     </div>
   );
-};
-
-MoneyInfoForm.propTypes = {
-  formDataMoneyInfo: PropTypes.object.isRequired, // Asegúrate de que formData sea un objeto y sea requerido
-  setFormDataMoneyInfo: PropTypes.func.isRequired, // Asegúrate de que formData sea un objeto y sea requerido
 };
 
 export default MoneyInfoForm;
