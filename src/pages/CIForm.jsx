@@ -1,26 +1,23 @@
-import { Form, Input, Card } from "antd";
-import { useGeneralVariables } from "../hooks/GeneralContext";
-import "../css/GeneralInfoForm.css";
+import { Form, Input, Card, Button } from "antd";
+import { useNavigate } from "react-router-dom";
+import "../css/CIForm.css";
 
-const MoneyInfoForm = () => {
-  const { ChangeFormDataMoneyInfo, formDataMoneyInfo } = useGeneralVariables();
+const CIForm = () => {
+  const navigate = useNavigate();
 
-  const handleInputChangeGeneralInfoForm = (fieldName, value) => {
-    // Actualizar el objeto formData con el nuevo valor
-    ChangeFormDataMoneyInfo({
-      ...formDataMoneyInfo,
-      [fieldName]: value,
-    });
+  const onFinish = (values) => {
+    console.log(values);
+    navigate("/FormMeetClient");
   };
 
   return (
-    <div>
-      {" "}
-      <div className="container">
-        <Card title="2 - Informacion Financiera" bordered={true}>
-          <div className="centered-form">
+    <>
+      <div className="container CIForm">
+        <Card title=" Conozca a su Cliente " bordered={true}>
+          <div className="centered-form ">
             <Form
               className="GeneralInfoForm"
+              onFinish={onFinish}
               name="basic"
               labelCol={{
                 span: 8,
@@ -37,23 +34,18 @@ const MoneyInfoForm = () => {
               autoComplete="off"
             >
               <Form.Item
-                label="Mensualidad"
+                label="Identificacion"
                 name="month"
                 rules={[
                   {
                     required: true,
-                    message: "Please input your username!",
+                    message: "Porfavor Ingrese su identificacion",
                   },
                 ]}
               >
-                <Input
-                  onChange={(e) =>
-                    handleInputChangeGeneralInfoForm("month", e.target.value)
-                  }
-                />
+                <Input />
               </Form.Item>
-
-              <Form.Item
+              {/* <Form.Item
                 label="Anualidad"
                 name="year"
                 rules={[
@@ -63,13 +55,17 @@ const MoneyInfoForm = () => {
                   },
                 ]}
               >
-                <Input
-                  onChange={(e) =>
-                    handleInputChangeGeneralInfoForm("year", e.target.value)
-                  }
-                />
+                <Input />
+              </Form.Item> */}
+              <Form.Item>
+                <Button
+                  className="custom-button"
+                  type="secundary"
+                  htmlType="submit"
+                >
+                  Enviar
+                </Button>
               </Form.Item>
-
               <Form.Item
                 wrapperCol={{
                   offset: 8,
@@ -80,8 +76,8 @@ const MoneyInfoForm = () => {
           </div>
         </Card>
       </div>
-    </div>
+    </>
   );
 };
 
-export default MoneyInfoForm;
+export default CIForm;

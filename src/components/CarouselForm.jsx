@@ -2,30 +2,71 @@ import { Carousel, Button } from "antd";
 import GeneralInfoForm from "./GeneralInfoForm";
 import "../css/GeneralInfoForm.css";
 import "../css/Carousel.css";
-import MoneyInfoForm from "./MoneyInfoForm";
+import EcononyInfoForm from "./EconomyInfoForm";
 import { useGeneralVariables } from "../hooks/GeneralContext";
 import { DenariusGeneralInfo } from "../api/DenariudGeneralInfoMethods";
+import Abilities from "./Abilities";
+import { useEffect, useRef, useState } from "react";
+import LegalInfoForm from "./LegalInfoForm";
+import AuthInfoForm from "./AuthInfoForm";
 
 const CarouselForm = () => {
+  const [loadingForm, setLoadingForm] = useState(true);
+  useEffect(() => {
+    const GetGeneralInfo = async () => {
+      ChangeLoadingGeneralInfo(true);
+      const response = await GeneralInfoController.getGeneralInfo();
+      ChangeDataGeneralInfo(response); // Actualiza el estado con los datos
+      console.log(
+        " Informacion General Denarius del Response Ruta - CarouselForm "
+      );
+
+      console.log(response);
+
+      console.log(
+        response.game_indices.map((abilitie) => {
+          abilitie.game_index;
+        })
+      );
+      setLoadingForm(false);
+      return response;
+    };
+
+    return () => {
+      GetGeneralInfo();
+    };
+  }, []);
+
   // Asi se llama a una contante del Context const { variable1 } = useGeneralVariables();
   const {
     formDataMoneyInfo,
     formDataGeneralInfo,
+    formDataLegalInfo,
     ChangeDataGeneralInfo,
     dataGeneralInfo,
+    ChangeLoadingGeneralInfo,
+    loadingGeneralInfo,
   } = useGeneralVariables();
+  const carouselRef = useRef(null);
   const GeneralInfoController = new DenariusGeneralInfo();
 
   const handleFormSubmit = () => {
     console.log("Datos del Formulario 1:", formDataGeneralInfo);
     console.log("Datos del Formulario 2:", formDataMoneyInfo);
+    console.log("Datos del Formulario 3:", formDataLegalInfo);
   };
 
   const onChange = (currentSlide) => {
     console.log(" ID de el carusel " + currentSlide);
   };
 
+  const goToSlideCarusel = (Slide) => {
+    // Usa la función goTo para ir a la vista
+    carouselRef.current.goTo(Slide);
+  };
+
   const GetGeneralInfo = async () => {
+    ChangeLoadingGeneralInfo(true);
     const response = await GeneralInfoController.getGeneralInfo();
     ChangeDataGeneralInfo(response); // Actualiza el estado con los datos
     console.log(
@@ -34,7 +75,12 @@ const CarouselForm = () => {
 
     console.log(response);
 
-    console.log(dataGeneralInfo);
+    console.log(
+      response.game_indices.map((abilitie) => {
+        abilitie.game_index;
+      })
+    );
+    ChangeLoadingGeneralInfo(false);
     return response;
   };
 
@@ -67,32 +113,49 @@ const CarouselForm = () => {
   //   }
   // }
 
-  return (
+  return loadingForm ? (
+    "Cargando..."
+  ) : (
     <>
-      <Carousel effect="fade" afterChange={onChange}>
+      <Carousel
+        effect="fade"
+        afterChange={onChange}
+        ref={carouselRef}
+        dots={false}
+      >
         <div>
           <h3 className="CarouselContentStyle">
-            <GeneralInfoForm />
+            <GeneralInfoForm
+              goToSlideCarusel={goToSlideCarusel}
+              GetGeneralInfo={GetGeneralInfo}
+            />
           </h3>
         </div>
         <div>
           <h3 className="CarouselContentStyle">
-            <MoneyInfoForm />
+            <EcononyInfoForm goToSlideCarusel={goToSlideCarusel} />
           </h3>
         </div>
         <div>
           <h3 className="CarouselContentStyle">
-            <GeneralInfoForm />
+            <LegalInfoForm goToSlideCarusel={goToSlideCarusel} />
           </h3>
         </div>
         <div>
           <h3 className="CarouselContentStyle">
-            <GeneralInfoForm />
+            <AuthInfoForm goToSlideCarusel={goToSlideCarusel} />
           </h3>
         </div>
       </Carousel>
-      <Button onClick={GetGeneralInfo}>Enviar</Button>
-      <Button onClick={handleFormSubmit}>Actualizar</Button>
+      <div className="containerButtons">
+        <Button
+          type="secundary"
+          className="custom-button"
+          onClick={handleFormSubmit}
+        >
+          Actualizar
+        </Button>
+      </div>
     </>
   );
 };

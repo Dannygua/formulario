@@ -6,3 +6,11 @@
     text-align: "center";
     background-color: rgba(251, 176, 59, 1)
 }
+
+.containerButtons {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+   min-height: 10vh; /*Esto asegura que el contenedor ocupe al menos el 100% de la altura de la ventana */
+    text-align: center;
+  }

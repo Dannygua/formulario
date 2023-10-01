@@ -1,18 +1,28 @@
-import { Form, Input, Col, Row, DatePicker, Select, Card } from "antd";
+import { Form, Input, Col, Row, DatePicker, Select, Card, Button } from "antd";
 import "../css/GeneralInfoForm.css";
 import { useGeneralVariables } from "../hooks/GeneralContext";
 import { useEffect, useState } from "react";
 import { Catalog } from "../api/CatalogMethods";
+import Abilities from "./Abilities";
 
-const GeneralInfoForm = () => {
-  const { ChangeFormDataGeneralInfo, formDataGeneralInfo } =
-    useGeneralVariables();
+const GeneralInfoForm = ({ goToSlideCarusel, GetGeneralInfo }) => {
+  const {
+    ChangeFormDataGeneralInfo,
+    formDataGeneralInfo,
+    dataGeneralInfo,
+    loadingGeneralInfo,
+  } = useGeneralVariables();
   const handleInputChangeGeneralInfoForm = (fieldName, value) => {
     // Actualizar el objeto formData con el nuevo valor
     ChangeFormDataGeneralInfo({
       ...formDataGeneralInfo,
       [fieldName]: value,
     });
+  };
+
+  const initialValues = {
+    lastname: dataGeneralInfo?.name, // Valor inicial para el campo 'nombre'
+    firstname: dataGeneralInfo?.name, // Valor inicial para el campo 'correo'
   };
 
   const CatalogController = new Catalog();
@@ -25,9 +35,14 @@ const GeneralInfoForm = () => {
     return response;
   };
 
+  const onFinish = (values) => {
+    ChangeFormDataGeneralInfo(values);
+    goToSlideCarusel(1);
+  };
+
   useEffect(() => {
-    console.log("Data");
-    console.log(provinceCatalog);
+    // console.log("Data");
+    // console.log(provinceCatalog);
   }, [provinceCatalog]);
 
   return (
@@ -44,8 +59,10 @@ const GeneralInfoForm = () => {
         >
           <div className="centered-form">
             <Form
+              initialValues={initialValues}
               className="GeneralInfoForm"
               name="basic"
+              onFinish={(e) => onFinish(e)}
               labelCol={{
                 span: 16,
               }}
@@ -59,13 +76,12 @@ const GeneralInfoForm = () => {
                 <Col span={12}>
                   {" "}
                   <Form.Item
-                    className="LabelGeneralInfo"
                     label="Apellido"
                     name="lastname"
                     rules={[
                       {
                         required: true,
-                        message: "Please input your username!",
+                        message: "Apellido requerido",
                       },
                     ]}
                   >
@@ -85,11 +101,10 @@ const GeneralInfoForm = () => {
                   <Form.Item
                     label="Nombre"
                     name="firstname"
-                    colon={false}
                     rules={[
                       {
                         required: true,
-                        message: "Please input your password!",
+                        message: "Nombre Requerido",
                       },
                     ]}
                   >
@@ -115,7 +130,7 @@ const GeneralInfoForm = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your username!",
+                        message: "Nacionalidad requerida",
                       },
                     ]}
                   >
@@ -138,7 +153,7 @@ const GeneralInfoForm = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your password!",
+                        message: "CI / Pasaporte requerido",
                       },
                     ]}
                   >
@@ -165,7 +180,7 @@ const GeneralInfoForm = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your username!",
+                        message: "Fecha de nacimiento requerida",
                       },
                     ]}
                   >
@@ -188,7 +203,7 @@ const GeneralInfoForm = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your password!",
+                        message: "Genero requerido",
                       },
                     ]}
                   >
@@ -214,7 +229,7 @@ const GeneralInfoForm = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your username!",
+                        message: "Estado civil requerido",
                       },
                     ]}
                   >
@@ -240,7 +255,7 @@ const GeneralInfoForm = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your password!",
+                        message: "Profesion requerida",
                       },
                     ]}
                   >
@@ -266,20 +281,21 @@ const GeneralInfoForm = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your username!",
+                        message: "Provincia requerida",
                       },
                     ]}
                   >
                     <Select
                       placeholder="Ingresa tu Provincia"
                       onChange={(value) => {
-                        ChangeCatalog({
-                          token_id:
-                            "P6C917uy64vZORdyh2aWqBTLDxZMl0WfFEYwFEoQxMtczD3JUWVjO6fvZf0yfYz0",
-                          Nivel: 3,
-                          idCatalogo: 13,
-                          CodigoPadre: value,
-                        });
+                        GetGeneralInfo();
+                        // ChangeCatalog({
+                        //   token_id:
+                        //     "P6C917uy64vZORdyh2aWqBTLDxZMl0WfFEYwFEoQxMtczD3JUWVjO6fvZf0yfYz0",
+                        //   Nivel: 3,
+                        //   idCatalogo: 13,
+                        //   CodigoPadre: value,
+                        // });
                         handleInputChangeGeneralInfoForm("province", value);
                       }}
                     >
@@ -293,20 +309,24 @@ const GeneralInfoForm = () => {
                   <Form.Item
                     label="Ciudad"
                     name="city"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input your password!",
-                      },
-                    ]}
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: "Please input your password!",
+                    //   },
+                    // ]}
                   >
-                    <Select
-                      placeholder="Ingresa tu Ciudad"
-                      onChange={(e) =>
-                        handleInputChangeGeneralInfoForm("city", e.target.value)
-                      }
-                    ></Select>
+                    {loadingGeneralInfo ? (
+                      <Select placeholder="Ingresa tu Ciudad"></Select>
+                    ) : (
+                      <Abilities
+                        handleInputChangeGeneralInfoForm={
+                          handleInputChangeGeneralInfoForm
+                        }
+                      />
+                    )}
                   </Form.Item>
+                  {loadingGeneralInfo ? <p>SI</p> : <Abilities />}
                 </Col>
               </Row>
 
@@ -322,7 +342,7 @@ const GeneralInfoForm = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your username!",
+                        message: "Dirección de domicilio requerida",
                       },
                     ]}
                   >
@@ -348,7 +368,7 @@ const GeneralInfoForm = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your username!",
+                        message: "Tiempo de residencia requerido",
                       },
                     ]}
                   >
@@ -371,7 +391,7 @@ const GeneralInfoForm = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your password!",
+                        message: "Teléfono celular requerido",
                       },
                     ]}
                   >
@@ -387,6 +407,15 @@ const GeneralInfoForm = () => {
                   </Form.Item>
                 </Col>
               </Row>
+              <Form.Item wrapperCol={{ offset: 6, span: 10 }}>
+                <Button
+                  className="custom-button"
+                  type="secundary"
+                  htmlType="submit"
+                >
+                  Continuar
+                </Button>
+              </Form.Item>
 
               <Form.Item
                 wrapperCol={{
@@ -395,6 +424,9 @@ const GeneralInfoForm = () => {
                 }}
               ></Form.Item>
             </Form>
+            {/* <Button type="primary" htmlType="submit" onClick={onFinish}>
+              Continuar
+            </Button> */}
           </div>
         </Card>
       </div>
