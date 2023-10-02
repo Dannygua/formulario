@@ -6,7 +6,7 @@ import { useEffect } from "react";
 const LegalInfoForm = ({ goToSlideCarusel }) => {
   const {
     ChangeFormLegalInfo,
-    formLegalInfo,
+    formDataLegalInfo,
     dataGeneralInfo,
     formDataMoneyInfo,
   } = useGeneralVariables();
@@ -14,19 +14,21 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
   const handleInputChangeGeneralInfoForm = (fieldName, value) => {
     // Actualizar el objeto formData con el nuevo valor
     ChangeFormLegalInfo({
-      ...formLegalInfo,
+      ...formDataLegalInfo,
       [fieldName]: value,
     });
   };
 
   useEffect(() => {
-    console.log("PRIMEROS DATOS GUARDADOS EN CONTEXT");
-    console.log(formDataMoneyInfo);
+    return () => {
+      console.log("PRIMEROS DATOS GUARDADOS EN ECONOMY");
+      console.log(formDataMoneyInfo);
+    };
   }, [formDataMoneyInfo]);
 
   const initialValues = {
-    months: dataGeneralInfo?.name, // Valor inicial para el campo 'nombre'
-    years: dataGeneralInfo?.name, // Valor inicial para el campo 'correo'
+    months: dataGeneralInfo?.Nombres, // Valor inicial para el campo 'nombre'
+    years: dataGeneralInfo?.Nombres, // Valor inicial para el campo 'correo'
   };
 
   const onFinish = (values) => {
@@ -61,9 +63,9 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                   <Col xs={22} sm={22} md={24} lg={24} xl={24}>
                     <Form
                       initialValues={initialValues}
-                      className="GeneralInfoForm"
+                      className="GeneralForm"
                       onFinish={(e) => onFinish(e)}
-                      name="basic"
+                      name="LegalForm"
                       labelCol={{
                         span: 16,
                       }}

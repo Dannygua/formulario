@@ -11,11 +11,16 @@ export function GeneralProvider({ children }) {
   const [formDataLegalInfo, setFormLegalInfo] = useState({});
   const [formDataAuthInfo, setFormAuthInfo] = useState({});
   const [generalDataUpdate, setGeneralDataUpdate] = useState({});
+  const [DatatoUpdate, setdatatoUpdate] = useState({});
 
   useEffect(() => {}, []);
 
   const ChangeLoadingGeneralInfo = (loginValue) => {
     setLoadingGeneralInfo(loginValue);
+  };
+
+  const ChangeDatatoUpdate = (updatedata) => {
+    setdatatoUpdate(updatedata);
   };
 
   const ChangeGeneralDataUpdate = (CIorPassport) => {
@@ -59,12 +64,14 @@ export function GeneralProvider({ children }) {
     ChangeLoadingGeneralInfo,
     ChangeFormLegalInfo,
     ChangeFormAuthInfo,
+    ChangeDatatoUpdate,
     formDataGeneralInfo,
     formDataMoneyInfo,
     loadingGeneralInfo,
     generalDataUpdate,
     formDataLegalInfo,
     formDataAuthInfo,
+    DatatoUpdate,
     ChangeGeneralDataUpdate,
   };
 

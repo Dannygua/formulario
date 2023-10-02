@@ -1,12 +1,15 @@
 import { Form, Input, Card, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import "../css/CIForm.css";
+import { useGeneralVariables } from "../hooks/GeneralContext";
 
 const CIForm = () => {
   const navigate = useNavigate();
+  const { ChangeCIorPassport } = useGeneralVariables();
 
   const onFinish = (values) => {
     console.log(values);
+    ChangeCIorPassport(values);
     navigate("/FormMeetClient");
   };
 
@@ -35,7 +38,7 @@ const CIForm = () => {
             >
               <Form.Item
                 label="Identificacion"
-                name="month"
+                name="CIorPassport"
                 rules={[
                   {
                     required: true,

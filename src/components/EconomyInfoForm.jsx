@@ -20,13 +20,15 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
   };
 
   useEffect(() => {
-    console.log("PRIMEROS DATOS GUARDADOS EN CONTEXT");
-    console.log(formDataGeneralInfo);
+    return () => {
+      console.log("PRIMEROS DATOS GUARDADOS EN INORMACION GENERAL");
+      console.log(formDataGeneralInfo);
+    };
   }, [formDataGeneralInfo]);
 
   const initialValues = {
-    jobtype: dataGeneralInfo?.name, // Valor inicial para el campo 'nombre'
-    monthlyincome: dataGeneralInfo?.name, // Valor inicial para el campo 'correo'
+    jobtype: dataGeneralInfo?.Nombres, // Valor inicial para el campo 'nombre'
+    monthlyincome: dataGeneralInfo?.Nombres, // Valor inicial para el campo 'correo'
   };
 
   const onFinish = (values) => {
@@ -63,7 +65,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                       initialValues={initialValues}
                       className="GeneralInfoForm"
                       onFinish={(e) => onFinish(e)}
-                      name="basic"
+                      name="EconomyForm"
                       labelCol={{
                         span: 16,
                       }}

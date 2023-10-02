@@ -4,36 +4,46 @@ import "../css/GeneralInfoForm.css";
 import "../css/Carousel.css";
 import EcononyInfoForm from "./EconomyInfoForm";
 import { useGeneralVariables } from "../hooks/GeneralContext";
-import { DenariusGeneralInfo } from "../api/DenariudGeneralInfoMethods";
-import Abilities from "./Abilities";
+import { fetchDataReference } from "../hooks/useForm";
 import { useEffect, useRef, useState } from "react";
 import LegalInfoForm from "./LegalInfoForm";
 import AuthInfoForm from "./AuthInfoForm";
+import { Catalog } from "../hooks/useCatalog";
+import Spinner from "./Spinner";
 
 const CarouselForm = () => {
   const [loadingForm, setLoadingForm] = useState(true);
+  const [countryCatalogg, setCountryCatalog] = useState({});
+  const CatalogController = new Catalog();
   useEffect(() => {
     const GetGeneralInfo = async () => {
-      ChangeLoadingGeneralInfo(true);
-      const response = await GeneralInfoController.getGeneralInfo();
+      setLoadingForm(true);
+      const response = await fetchDataReference(CIorPassport);
       ChangeDataGeneralInfo(response); // Actualiza el estado con los datos
       console.log(
         " Informacion General Denarius del Response Ruta - CarouselForm "
       );
-
       console.log(response);
+    };
 
-      console.log(
-        response.game_indices.map((abilitie) => {
-          abilitie.game_index;
-        })
-      );
+    const ChangeCatalog = async () => {
+      setLoadingForm(true);
+      const response = await CatalogController.getCatalog({
+        token_id:
+          "P6C917uy64vZORdyh2aWqBTLDxZMl0WfFEYwFEoQxMtczD3JUWVjO6fvZf0yfYz0",
+        Nivel: 2,
+        idCatalogo: 13,
+        CodigoPadre: "",
+      });
+      setCountryCatalog(response?.ResultSets?.Table1); // Actualiza el estado con los datos
+      console.log("Catalogo de Paises");
+      console.log(response?.ResultSets?.Table1);
       setLoadingForm(false);
-      return response;
     };
 
     return () => {
       GetGeneralInfo();
+      ChangeCatalog();
     };
   }, []);
 
@@ -46,9 +56,10 @@ const CarouselForm = () => {
     dataGeneralInfo,
     ChangeLoadingGeneralInfo,
     loadingGeneralInfo,
+    CIorPassport,
   } = useGeneralVariables();
   const carouselRef = useRef(null);
-  const GeneralInfoController = new DenariusGeneralInfo();
+  // const GeneralInfoController = new DenariusGeneralInfo();
 
   const handleFormSubmit = () => {
     console.log("Datos del Formulario 1:", formDataGeneralInfo);
@@ -63,25 +74,6 @@ const CarouselForm = () => {
   const goToSlideCarusel = (Slide) => {
     // Usa la función goTo para ir a la vista
     carouselRef.current.goTo(Slide);
-  };
-
-  const GetGeneralInfo = async () => {
-    ChangeLoadingGeneralInfo(true);
-    const response = await GeneralInfoController.getGeneralInfo();
-    ChangeDataGeneralInfo(response); // Actualiza el estado con los datos
-    console.log(
-      " Informacion General Denarius del Response Ruta - CarouselForm "
-    );
-
-    console.log(response);
-
-    console.log(
-      response.game_indices.map((abilitie) => {
-        abilitie.game_index;
-      })
-    );
-    ChangeLoadingGeneralInfo(false);
-    return response;
   };
 
   // async function fetchDataCatalogo(datos) {
@@ -114,7 +106,7 @@ const CarouselForm = () => {
   // }
 
   return loadingForm ? (
-    "Cargando..."
+    <Spinner />
   ) : (
     <>
       <Carousel
@@ -127,7 +119,7 @@ const CarouselForm = () => {
           <h3 className="CarouselContentStyle">
             <GeneralInfoForm
               goToSlideCarusel={goToSlideCarusel}
-              GetGeneralInfo={GetGeneralInfo}
+              countryCatalogg={countryCatalogg}
             />
           </h3>
         </div>

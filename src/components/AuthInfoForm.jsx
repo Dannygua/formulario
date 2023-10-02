@@ -6,31 +6,45 @@ import { useEffect } from "react";
 const AuthInfoForm = ({ goToSlideCarusel }) => {
   const {
     ChangeFormAuthInfo,
-    formAuthInfo,
     dataGeneralInfo,
     formDataLegalInfo,
+    formDataMoneyInfo,
+    formDataGeneralInfo,
+    formDataAuthInfo,
+    DatatoUpdate,
+    ChangeDatatoUpdate,
   } = useGeneralVariables();
 
   const handleInputChangeGeneralInfoForm = (fieldName, value) => {
     // Actualizar el objeto formData con el nuevo valor
     ChangeFormAuthInfo({
-      ...formAuthInfo,
+      ...formDataAuthInfo,
       [fieldName]: value,
     });
   };
 
   useEffect(() => {
-    console.log("PRIMEROS DATOS GUARDADOS EN CONTEXT");
-    console.log(formDataLegalInfo);
+    return () => {
+      console.log("PRIMEROS DATOS GUARDADOS EN LEGAL");
+      console.log(formDataLegalInfo);
+    };
   }, [formDataLegalInfo]);
 
   const initialValues = {
-    months: dataGeneralInfo?.name, // Valor inicial para el campo 'nombre'
-    years: dataGeneralInfo?.name, // Valor inicial para el campo 'correo'
+    months: dataGeneralInfo?.Nombres, // Valor inicial para el campo 'nombre'
+    years: dataGeneralInfo?.Nombres, // Valor inicial para el campo 'correo'
   };
 
   const onFinish = (values) => {
     ChangeFormAuthInfo(values);
+    const combinedData = {
+      ...formDataGeneralInfo,
+      ...formDataMoneyInfo,
+      ...formDataLegalInfo,
+      ...formDataAuthInfo,
+    };
+    ChangeDatatoUpdate(combinedData);
+    console.log(DatatoUpdate);
     goToSlideCarusel(3);
   };
 
@@ -63,7 +77,7 @@ const AuthInfoForm = ({ goToSlideCarusel }) => {
                       initialValues={initialValues}
                       className="GeneralInfoForm"
                       onFinish={(e) => onFinish(e)}
-                      name="basic"
+                      name="AuthForm"
                       labelCol={{
                         span: 16,
                       }}

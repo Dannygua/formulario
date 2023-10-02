@@ -2,15 +2,16 @@ import { Form, Input, Col, Row, DatePicker, Select, Card, Button } from "antd";
 import "../css/GeneralInfoForm.css";
 import { useGeneralVariables } from "../hooks/GeneralContext";
 import { useEffect, useState } from "react";
-import { Catalog } from "../api/CatalogMethods";
-import Abilities from "./Abilities";
+import { Catalog } from "../hooks/useCatalog";
+import SelectForm from "./SelectForm";
 
-const GeneralInfoForm = ({ goToSlideCarusel, GetGeneralInfo }) => {
+const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
   const {
     ChangeFormDataGeneralInfo,
     formDataGeneralInfo,
     dataGeneralInfo,
     loadingGeneralInfo,
+    ChangeLoadingGeneralInfo,
   } = useGeneralVariables();
   const handleInputChangeGeneralInfoForm = (fieldName, value) => {
     // Actualizar el objeto formData con el nuevo valor
@@ -21,17 +22,22 @@ const GeneralInfoForm = ({ goToSlideCarusel, GetGeneralInfo }) => {
   };
 
   const initialValues = {
-    lastname: dataGeneralInfo?.name, // Valor inicial para el campo 'nombre'
-    firstname: dataGeneralInfo?.name, // Valor inicial para el campo 'correo'
+    lastname: dataGeneralInfo?.Apellidos, // Valor inicial para el campo 'nombre'
+    firstname: dataGeneralInfo?.Nombres, // Valor inicial para el campo 'correo'
   };
 
   const CatalogController = new Catalog();
   const [provinceCatalog, setProvinceCatalog] = useState({});
+  const [cityCatalog, setCityCatalog] = useState({});
+  const [cityLoading, setCityLoading] = useState(true);
 
-  const ChangeCatalog = async (CatalogData) => {
+  const ChangeCatalog = async (CatalogData, DataCatalog, loadingCatalog) => {
+    loadingCatalog(true);
     const response = await CatalogController.getCatalog(CatalogData);
-    setProvinceCatalog(response?.ResultSets?.Table1); // Actualiza el estado con los datos
-    console.log(response);
+    DataCatalog(response?.ResultSets?.Table1); // Actualiza el estado con los datos
+    console.log("Catalogo de Provincias");
+    console.log(response?.ResultSets?.Table1);
+    loadingCatalog(false);
     return response;
   };
 
@@ -39,12 +45,6 @@ const GeneralInfoForm = ({ goToSlideCarusel, GetGeneralInfo }) => {
     ChangeFormDataGeneralInfo(values);
     goToSlideCarusel(1);
   };
-
-  useEffect(() => {
-    // console.log("Data");
-    // console.log(provinceCatalog);
-  }, [provinceCatalog]);
-
   return (
     <div>
       <div className="container">
@@ -61,7 +61,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, GetGeneralInfo }) => {
             <Form
               initialValues={initialValues}
               className="GeneralInfoForm"
-              name="basic"
+              name="GeneralForm"
               onFinish={(e) => onFinish(e)}
               labelCol={{
                 span: 16,
@@ -276,34 +276,89 @@ const GeneralInfoForm = ({ goToSlideCarusel, GetGeneralInfo }) => {
                 <Col span={12}>
                   {" "}
                   <Form.Item
-                    label="Provincia"
-                    name="province"
+                    label="Pais"
+                    name="country"
                     rules={[
                       {
                         required: true,
-                        message: "Provincia requerida",
+                        message: "Pais requerido",
                       },
                     ]}
                   >
                     <Select
-                      placeholder="Ingresa tu Provincia"
-                      onChange={(value) => {
-                        GetGeneralInfo();
-                        // ChangeCatalog({
-                        //   token_id:
-                        //     "P6C917uy64vZORdyh2aWqBTLDxZMl0WfFEYwFEoQxMtczD3JUWVjO6fvZf0yfYz0",
-                        //   Nivel: 3,
-                        //   idCatalogo: 13,
-                        //   CodigoPadre: value,
-                        // });
-                        handleInputChangeGeneralInfoForm("province", value);
+                      showSearch // Habilita la búsqueda
+                      optionFilterProp="children" // Propiedad para filtrar las opciones
+                      filterOption={(input, option) =>
+                        option.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                      placeholder="Ingresa tu Pais"
+                      onChange={(value, key) => {
+                        ChangeCatalog(
+                          {
+                            token_id:
+                              "P6C917uy64vZORdyh2aWqBTLDxZMl0WfFEYwFEoQxMtczD3JUWVjO6fvZf0yfYz0",
+                            Nivel: 3,
+                            idCatalogo: 13,
+                            CodigoPadre: value,
+                          },
+                          setProvinceCatalog,
+                          ChangeLoadingGeneralInfo
+                        );
+                        handleInputChangeGeneralInfoForm(
+                          "country",
+                          key.children
+                        );
                       }}
                     >
-                      <Select.Option value="744">Ecuador</Select.Option>
-                      <Select.Option value="727">Chile</Select.Option>
+                      {countryCatalogg.map((country) => (
+                        <Select.Option
+                          key={country.Descripcion}
+                          value={country.IdDetalleCatalogo}
+                        >
+                          {country.Descripcion}
+                        </Select.Option>
+                      ))}
                     </Select>
                   </Form.Item>
                 </Col>
+                <Col span={12}>
+                  {" "}
+                  <Form.Item
+                    label="Provincia"
+                    name="province"
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: "Please input your password!",
+                    //   },
+                    // ]}
+                  >
+                    {loadingGeneralInfo ? (
+                      <Select placeholder="Ingresa tu Provincia">
+                        Cargando...
+                      </Select>
+                    ) : (
+                      <SelectForm
+                        ChangeCatalog={ChangeCatalog}
+                        Nivel={4}
+                        idCatalogo={13}
+                        namelabel="Provincia"
+                        namevalue="province"
+                        setDataCalatog={setCityCatalog}
+                        handleInputChangeGeneralInfoForm={
+                          handleInputChangeGeneralInfoForm
+                        }
+                        DataCatalog={provinceCatalog}
+                        loadingCatalog={setCityLoading}
+                      />
+                    )}
+                  </Form.Item>
+                </Col>
+              </Row>
+
+              <Row gutter={16}>
                 <Col span={12}>
                   {" "}
                   <Form.Item
@@ -316,22 +371,28 @@ const GeneralInfoForm = ({ goToSlideCarusel, GetGeneralInfo }) => {
                     //   },
                     // ]}
                   >
-                    {loadingGeneralInfo ? (
-                      <Select placeholder="Ingresa tu Ciudad"></Select>
+                    {cityLoading ? (
+                      <Select placeholder="Ingresa tu Ciudad">
+                        Cargando...
+                      </Select>
                     ) : (
-                      <Abilities
+                      <SelectForm
+                        ChangeCatalog={ChangeCatalog}
+                        Nivel={5}
+                        idCatalogo={13}
+                        namelabel="Ciudad"
+                        namevalue="city"
+                        // setDataCalatog={setCityCatalog}
                         handleInputChangeGeneralInfoForm={
                           handleInputChangeGeneralInfoForm
                         }
+                        DataCatalog={cityCatalog}
                       />
                     )}
                   </Form.Item>
-                  {loadingGeneralInfo ? <p>SI</p> : <Abilities />}
                 </Col>
-              </Row>
 
-              <Row gutter={16}>
-                <Col span={24}>
+                <Col span={12}>
                   {" "}
                   <Form.Item
                     wrapperCol={{

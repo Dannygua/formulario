@@ -1,4 +1,4 @@
-import MeetClientPrincipalForm from "./pages/MeetClientPrincipalForm";
+import MeetClientPrincipalForm from "./pages/MeetClientForm";
 import { GeneralProvider } from "./context/GeneralContext";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CIForm from "./pages/CIForm";
