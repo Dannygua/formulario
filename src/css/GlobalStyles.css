@@ -30,6 +30,20 @@
 
 }
 
-.custom-button:hover {
+.radioEmpleo{
+    margin-right: 100px;
+}
 
-  }
+.formradiojob{
+    text-align: left;
+}
+
+.radioGeneral{
+    margin-right: 60px;
+}
+
+.justify{
+    text-align: justify;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}

@@ -1,4 +1,14 @@
-import { Form, Input, Col, Row, DatePicker, Select, Card, Button } from "antd";
+import {
+  Form,
+  Input,
+  Col,
+  Row,
+  DatePicker,
+  Select,
+  Card,
+  Button,
+  Radio,
+} from "antd";
 import "../css/GeneralInfoForm.css";
 import { useGeneralVariables } from "../hooks/GeneralContext";
 import { useEffect, useState } from "react";
@@ -186,11 +196,8 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   >
                     <DatePicker
                       className="DataPickerClass"
-                      onChange={(e) =>
-                        handleInputChangeGeneralInfoForm(
-                          "birthdate",
-                          e.target.value
-                        )
+                      onChange={(value) =>
+                        handleInputChangeGeneralInfoForm("birthdate", value)
                       }
                     />
                   </Form.Item>
@@ -200,6 +207,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   <Form.Item
                     label="Genero"
                     name="gender"
+                    className="formradiojob"
                     rules={[
                       {
                         required: true,
@@ -207,15 +215,19 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                       },
                     ]}
                   >
-                    <Input
-                      placeholder="Ingresa tu Genero"
-                      onChange={(e) =>
+                    <Radio.Group
+                      onChange={(value) =>
                         handleInputChangeGeneralInfoForm(
                           "gender",
-                          e.target.value
+                          value.target.value
                         )
                       }
-                    />
+                    >
+                      <Radio className="radioGeneral" value="Masculino">
+                        Masculino
+                      </Radio>
+                      <Radio value="Femenino"> Femenino </Radio>
+                    </Radio.Group>
                   </Form.Item>
                 </Col>
               </Row>
@@ -235,11 +247,8 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   >
                     <Select
                       placeholder="Ingresa tu Estado Civil"
-                      onChange={(e) =>
-                        handleInputChangeGeneralInfoForm(
-                          "civilstate",
-                          e.target.value
-                        )
+                      onChange={(value) =>
+                        handleInputChangeGeneralInfoForm("civilstate", value)
                       }
                     >
                       <Select.Option value="Casado">Casado</Select.Option>

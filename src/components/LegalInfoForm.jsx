@@ -1,4 +1,4 @@
-import { Form, Input, Card, Button, Row, Col } from "antd";
+import { Form, Input, Card, Button, Row, Col, Radio, Checkbox } from "antd";
 import { useGeneralVariables } from "../hooks/GeneralContext";
 import "../css/GeneralInfoForm.css";
 import { useEffect } from "react";
@@ -63,7 +63,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                   <Col xs={22} sm={22} md={24} lg={24} xl={24}>
                     <Form
                       initialValues={initialValues}
-                      className="GeneralForm"
+                      className="GeneralInfoForm"
                       onFinish={(e) => onFinish(e)}
                       name="LegalForm"
                       labelCol={{
@@ -76,11 +76,8 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                       layout="vertical"
                     >
                       <Row gutter={16}>
-                        <Col span={12} xs={24} sm={24} md={24} lg={24} xl={24}>
+                        <Col span={24} xs={24} sm={24} md={24} lg={24} xl={24}>
                           <Form.Item
-                            wrapperCol={{
-                              span: 23,
-                            }}
                             label="Nombre de la Institución"
                             name="institution"
                             rules={[
@@ -101,10 +98,11 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                             />
                           </Form.Item>
                         </Col>
-                        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+                        <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Tipo de cuenta"
                             name="accounttype"
+                            className="formradiojob"
                             rules={[
                               {
                                 required: true,
@@ -112,15 +110,19 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               },
                             ]}
                           >
-                            <Input
-                              placeholder="Ingresa el Tipo de cuenta"
-                              onChange={(e) =>
+                            <Radio.Group
+                              onChange={(value) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "accounttype",
-                                  e.target.value
+                                  "gender",
+                                  value.target.value
                                 )
                               }
-                            />
+                            >
+                              <Radio className="radioGeneral" value="Ahorros">
+                                Ahorros
+                              </Radio>
+                              <Radio value="Corriente"> Corriente </Radio>
+                            </Radio.Group>
                           </Form.Item>
                         </Col>
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
@@ -145,7 +147,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                             />
                           </Form.Item>
                         </Col>
-                        <Col span={1} xs={24} sm={24} md={24} lg={24} xl={24}>
+                        <Col span={12} xs={24} sm={24} md={24} lg={24} xl={24}>
                           <Form.Item className="TitleCardSecundary">
                             <span className="TitleCardSecundary">
                               <span className="NumberTitleCard">5</span>
@@ -158,6 +160,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                           <Form.Item
                             label="Funcionario público"
                             name="civilservant"
+                            className="formradiojob"
                             rules={[
                               {
                                 required: true,
@@ -165,15 +168,19 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               },
                             ]}
                           >
-                            <Input
-                              placeholder="Ingresa el Funcionario público"
-                              onChange={(e) =>
+                            <Radio.Group
+                              onChange={(value) =>
                                 handleInputChangeGeneralInfoForm(
                                   "civilservant",
-                                  e.target.value
+                                  value.target.value
                                 )
                               }
-                            />
+                            >
+                              <Radio className="radioGeneral" value="SI">
+                                SI
+                              </Radio>
+                              <Radio value="NO"> NO </Radio>
+                            </Radio.Group>
                           </Form.Item>
                         </Col>
 
@@ -204,6 +211,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                           <Form.Item
                             label="Miembro de algún partido político"
                             name="politicalparty"
+                            className="formradiojob"
                             rules={[
                               {
                                 required: true,
@@ -211,15 +219,19 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               },
                             ]}
                           >
-                            <Input
-                              placeholder="Ingresa el Miembro de algún partido político"
-                              onChange={(e) =>
+                            <Radio.Group
+                              onChange={(value) =>
                                 handleInputChangeGeneralInfoForm(
                                   "politicalparty",
-                                  e.target.value
+                                  value.target.value
                                 )
                               }
-                            />
+                            >
+                              <Radio className="radioGeneral" value="SI">
+                                SI
+                              </Radio>
+                              <Radio value="NO"> NO </Radio>
+                            </Radio.Group>
                           </Form.Item>
                         </Col>
 
@@ -289,6 +301,38 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                                 )
                               }
                             />
+                          </Form.Item>
+                        </Col>
+                        <Col span={24} xs={24} sm={24} md={24} lg={24} xl={24}>
+                          <Form.Item
+                            name="disabled"
+                            valuePropName="checked"
+                            className="justify"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Se requiere Aprobar la Declaracion",
+                              },
+                            ]}
+                          >
+                            <Checkbox>
+                              Declaro que el origen de los fondos entregados son
+                              lícitos y consecuentemente no provienen de ninguna
+                              actividad ilegal o ilícita, tipificadas en lasley
+                              de Prevención, Detección y Erradicación del Delito
+                              de Lavado de Activos y del Financiamiento de
+                              Delitos. Autorizo a la institución realizar el
+                              análisis y verificaciones que consideren
+                              pertinentes e informar de manera inmediata y
+                              documentada a la autoridad competente en casos de
+                              investigación o cuando se detectare inusualidades.
+                              Garantiza la veracidad de la información
+                              proporcionada y renuncia a ejecutar cualquier
+                              pretensión tanto en el ámbito civil como penal por
+                              estos hechos, acogiéndose a sanciones que por
+                              información falsa establezcan las leyes
+                              ecuatorianas.
+                            </Checkbox>
                           </Form.Item>
                         </Col>
 

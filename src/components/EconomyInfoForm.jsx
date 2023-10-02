@@ -1,4 +1,4 @@
-import { Form, Input, Card, Button, Row, Col } from "antd";
+import { Form, Input, Card, Button, Row, Col, Radio } from "antd";
 import { useGeneralVariables } from "../hooks/GeneralContext";
 import "../css/GeneralInfoForm.css";
 import { useEffect } from "react";
@@ -76,10 +76,11 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                       layout="vertical"
                     >
                       <Row gutter={16}>
-                        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                           <Form.Item
                             label="Tipo de empleo"
                             name="jobtype"
+                            className="formradiojob"
                             rules={[
                               {
                                 required: true,
@@ -87,15 +88,30 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                               },
                             ]}
                           >
-                            <Input
-                              placeholder="Ingresa el Tipo de empleo"
-                              onChange={(e) =>
+                            <Radio.Group
+                              onChange={(value) =>
                                 handleInputChangeGeneralInfoForm(
                                   "jobtype",
-                                  e.target.value
+                                  value.target.value
                                 )
                               }
-                            />
+                            >
+                              <Radio
+                                className="radioEmpleo"
+                                value="Independiente"
+                              >
+                                Independiente
+                              </Radio>
+                              <Radio
+                                className="radioEmpleo"
+                                value="Empleado privado"
+                              >
+                                Empleado privado
+                              </Radio>
+                              <Radio value="Empleado público">
+                                Empleado público
+                              </Radio>
+                            </Radio.Group>
                           </Form.Item>
                         </Col>
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>

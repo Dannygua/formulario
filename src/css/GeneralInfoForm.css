@@ -14,7 +14,7 @@
   display: flex;
   justify-content: center; /* Centra horizontalmente */
   align-items: center; /* Centra verticalmente */
- min-height: 80vh; /*Esto asegura que el contenedor ocupe al menos el 100% de la altura de la ventana */
+ min-height: 100vh; /*Esto asegura que el contenedor ocupe al menos el 100% de la altura de la ventana */
   text-align: center;
 }
 

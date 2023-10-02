@@ -1,7 +1,8 @@
-import { Form, Input, Card, Button, Row, Col } from "antd";
+import { Form, Input, Card, Button, Row, Col, Checkbox } from "antd";
 import { useGeneralVariables } from "../hooks/GeneralContext";
 import "../css/GeneralInfoForm.css";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthInfoForm = ({ goToSlideCarusel }) => {
   const {
@@ -14,6 +15,7 @@ const AuthInfoForm = ({ goToSlideCarusel }) => {
     DatatoUpdate,
     ChangeDatatoUpdate,
   } = useGeneralVariables();
+  const navigate = useNavigate();
 
   const handleInputChangeGeneralInfoForm = (fieldName, value) => {
     // Actualizar el objeto formData con el nuevo valor
@@ -45,7 +47,7 @@ const AuthInfoForm = ({ goToSlideCarusel }) => {
     };
     ChangeDatatoUpdate(combinedData);
     console.log(DatatoUpdate);
-    goToSlideCarusel(3);
+    navigate("/");
   };
 
   const onBack = (e) => {
@@ -86,52 +88,53 @@ const AuthInfoForm = ({ goToSlideCarusel }) => {
                       }}
                       autoComplete="off"
                       layout="vertical"
+                      rules={[
+                        {
+                          required: true,
+
+                          message: "Debes aceptar los términos y condiciones.",
+                        },
+                      ]}
                     >
                       <Row gutter={16}>
-                        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+                        <Col span={24} xs={24} sm={24} md={24} lg={24} xl={24}>
                           <Form.Item
-                            label="Mensualidad"
-                            name="months"
-                            rules={[
-                              {
-                                required: true,
-                                message: "Dato requerido",
-                              },
-                            ]}
+                            name="AuthOne"
+                            valuePropName="checked"
+                            className="justify"
                           >
-                            <Input
-                              placeholder="Ingresa tus apellidos"
-                              onChange={(e) =>
-                                handleInputChangeGeneralInfoForm(
-                                  "month",
-                                  e.target.value
-                                )
-                              }
-                            />
+                            <Checkbox>
+                              Acepto la Cláusula informativa y autorización de
+                              Tratamiento de Datos Personales.
+                            </Checkbox>
                           </Form.Item>
                         </Col>
-                        <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
+
+                        <Col span={24} xs={24} sm={24} md={24} lg={24} xl={24}>
                           <Form.Item
-                            label="Anualidad"
-                            name="years"
-                            rules={[
-                              {
-                                required: true,
-                                message: "Dato requerido",
-                              },
-                            ]}
+                            name="AuthTwo"
+                            valuePropName="checked"
+                            className="justify"
                           >
-                            <Input
-                              placeholder="Ingresa tus apellidos"
-                              onChange={(e) =>
-                                handleInputChangeGeneralInfoForm(
-                                  "year",
-                                  e.target.value
-                                )
-                              }
-                            />
+                            <Checkbox>
+                              Acepto la Política de Privacidad
+                            </Checkbox>
                           </Form.Item>
                         </Col>
+
+                        <Col span={24} xs={24} sm={24} md={24} lg={24} xl={24}>
+                          <Form.Item
+                            name="AuthThree"
+                            valuePropName="checked"
+                            className="justify"
+                          >
+                            <Checkbox>
+                              Acepto los Términos y condiciones de uso de
+                              canales digitales de SG
+                            </Checkbox>
+                          </Form.Item>
+                        </Col>
+
                         <Col span={12} xs={15} sm={24} md={24} lg={24} xl={24}>
                           <Form.Item wrapperCol={{ offset: 6, span: 10 }}>
                             <Button
