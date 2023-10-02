@@ -47,7 +47,7 @@ const AuthInfoForm = ({ goToSlideCarusel }) => {
     };
     ChangeDatatoUpdate(combinedData);
     console.log(DatatoUpdate);
-    navigate("/");
+    // navigate("/");
   };
 
   const onBack = (e) => {

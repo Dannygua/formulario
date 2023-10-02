@@ -27,8 +27,12 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
   }, [formDataGeneralInfo]);
 
   const initialValues = {
-    jobtype: dataGeneralInfo?.Nombres, // Valor inicial para el campo 'nombre'
-    monthlyincome: dataGeneralInfo?.Nombres, // Valor inicial para el campo 'correo'
+    TipoActividad: dataGeneralInfo?.TipoActividad,
+    // IngresoMensual: dataGeneralInfo?.IngresoMensual,
+    TotalActivos: dataGeneralInfo?.TotalActivos,
+    TotalPasivos: dataGeneralInfo?.TotalPasivos,
+    // IngresosMensuales: dataGeneralInfo?.IngresosMensuales,
+    // EgresosMensuales: dataGeneralInfo?.EgresosMensuales,
   };
 
   const onFinish = (values) => {
@@ -79,7 +83,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                           <Form.Item
                             label="Tipo de empleo"
-                            name="jobtype"
+                            name="TipoActividad"
                             className="formradiojob"
                             rules={[
                               {
@@ -91,7 +95,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                             <Radio.Group
                               onChange={(value) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "jobtype",
+                                  "TipoActividad",
                                   value.target.value
                                 )
                               }
@@ -117,7 +121,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Ingreso Mensual"
-                            name="monthlyincome"
+                            name="IngresoMensual"
                             rules={[
                               {
                                 required: true,
@@ -129,7 +133,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                               placeholder="Ingresa tu Ingreso Mensual"
                               onChange={(e) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "monthlyincome",
+                                  "IngresoMensual",
                                   e.target.value
                                 )
                               }
@@ -148,7 +152,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                         <Col xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Total Activos"
-                            name="totalassets"
+                            name="TotalActivos"
                             rules={[
                               {
                                 required: true,
@@ -160,7 +164,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                               placeholder="Ingresa el Total Activos"
                               onChange={(e) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "totalassets",
+                                  "TotalActivos",
                                   e.target.value
                                 )
                               }
@@ -170,7 +174,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Total Pasivos"
-                            name="totalliabilities"
+                            name="TotalPasivos"
                             rules={[
                               {
                                 required: true,
@@ -182,29 +186,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                               placeholder="Ingresa el Total Pasivos"
                               onChange={(e) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "totalliabilities",
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </Form.Item>
-                        </Col>
-                        <Col xs={24} sm={12} md={12} lg={12} xl={12}>
-                          <Form.Item
-                            label="Ingresos Mensuales"
-                            name="monthlyincome"
-                            rules={[
-                              {
-                                required: true,
-                                message: "Dato requerido",
-                              },
-                            ]}
-                          >
-                            <Input
-                              placeholder="Ingresa los Ingresos Mensuales"
-                              onChange={(e) =>
-                                handleInputChangeGeneralInfoForm(
-                                  "monthlyincome",
+                                  "TotalPasivos",
                                   e.target.value
                                 )
                               }
@@ -214,7 +196,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Egresos Mensuales"
-                            name="monthlyexpenditures"
+                            name="EgresosMensuales"
                             rules={[
                               {
                                 required: true,
@@ -226,7 +208,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                               placeholder="Ingresa los Egresos Mensuales"
                               onChange={(e) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "monthlyexpenditures",
+                                  "EgresosMensuales",
                                   e.target.value
                                 )
                               }

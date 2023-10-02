@@ -18,12 +18,17 @@ const CarouselForm = () => {
   useEffect(() => {
     const GetGeneralInfo = async () => {
       setLoadingForm(true);
-      const response = await fetchDataReference(CIorPassport);
-      ChangeDataGeneralInfo(response); // Actualiza el estado con los datos
+      const response = await fetchDataReference({
+        token: "",
+        cedula: CIorPassport,
+      });
+      // Actualiza el estado con los datos
       console.log(
         " Informacion General Denarius del Response Ruta - CarouselForm "
       );
       console.log(response);
+      setLoadingForm(false);
+      ChangeDataGeneralInfo(response);
     };
 
     const ChangeCatalog = async () => {
@@ -38,7 +43,6 @@ const CarouselForm = () => {
       setCountryCatalog(response?.ResultSets?.Table1); // Actualiza el estado con los datos
       console.log("Catalogo de Paises");
       console.log(response?.ResultSets?.Table1);
-      setLoadingForm(false);
     };
 
     return () => {

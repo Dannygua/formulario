@@ -27,8 +27,16 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
   }, [formDataMoneyInfo]);
 
   const initialValues = {
-    months: dataGeneralInfo?.Nombres, // Valor inicial para el campo 'nombre'
-    years: dataGeneralInfo?.Nombres, // Valor inicial para el campo 'correo'
+    Institucion: dataGeneralInfo?.Institucion,
+    // TipoCuenta: dataGeneralInfo?.TipoCuenta,
+    NumeroCuentaAHO: dataGeneralInfo?.NumeroCuentaAHO,
+    EsFuncionario: dataGeneralInfo?.EsFuncionario,
+    // NombreFuncionario: dataGeneralInfo?.NombreFuncionario,
+    // EsPartidoPolitico: dataGeneralInfo?.EsPartidoPolitico,
+    // NombrePartidoPolitico: dataGeneralInfo?.NombrePartidoPolitico,
+    // NombrePartidoPolitico: dataGeneralInfo?.NombrePartidoPolitico,
+    // OrigenFondos: dataGeneralInfo?.NombrePartidoPolitico,
+    // DestinoFondos: dataGeneralInfo?.NombrePartidoPolitico,
   };
 
   const onFinish = (values) => {
@@ -79,7 +87,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                         <Col span={24} xs={24} sm={24} md={24} lg={24} xl={24}>
                           <Form.Item
                             label="Nombre de la Institución"
-                            name="institution"
+                            name="Institucion"
                             rules={[
                               {
                                 required: true,
@@ -91,7 +99,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               placeholder="Ingresa el Nombre de la Institución"
                               onChange={(e) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "institution",
+                                  "Institucion",
                                   e.target.value
                                 )
                               }
@@ -101,7 +109,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Tipo de cuenta"
-                            name="accounttype"
+                            name="TipoCuenta"
                             className="formradiojob"
                             rules={[
                               {
@@ -113,7 +121,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                             <Radio.Group
                               onChange={(value) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "gender",
+                                  "TipoCuenta",
                                   value.target.value
                                 )
                               }
@@ -128,7 +136,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="No. de cuenta"
-                            name="accountnumber"
+                            name="NumeroCuentaAHO"
                             rules={[
                               {
                                 required: true,
@@ -140,7 +148,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               placeholder="Ingresa el No. de cuenta"
                               onChange={(e) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "accountnumber",
+                                  "NumeroCuentaAHO",
                                   e.target.value
                                 )
                               }
@@ -159,7 +167,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Funcionario público"
-                            name="civilservant"
+                            name="EsFuncionario"
                             className="formradiojob"
                             rules={[
                               {
@@ -171,7 +179,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                             <Radio.Group
                               onChange={(value) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "civilservant",
+                                  "EsFuncionario",
                                   value.target.value
                                 )
                               }
@@ -187,7 +195,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Nombre del Funcionario Publico"
-                            name="civilservantname"
+                            name="NombreFuncionario"
                             rules={[
                               {
                                 required: true,
@@ -199,7 +207,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               placeholder="Ingresa el Funcionario público"
                               onChange={(e) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "civilservantname",
+                                  "NombreFuncionario",
                                   e.target.value
                                 )
                               }
@@ -210,7 +218,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Miembro de algún partido político"
-                            name="politicalparty"
+                            name="EsPartidoPolitico"
                             className="formradiojob"
                             rules={[
                               {
@@ -222,7 +230,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                             <Radio.Group
                               onChange={(value) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "politicalparty",
+                                  "EsPartidoPolitico",
                                   value.target.value
                                 )
                               }
@@ -238,7 +246,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Nombre del partido político"
-                            name="politicalpartyname"
+                            name="NombrePartidoPolitico"
                             rules={[
                               {
                                 required: true,
@@ -250,7 +258,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               placeholder="Ingresa el Nombre del partido político"
                               onChange={(e) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "politicalpartyname",
+                                  "NombrePartidoPolitico",
                                   e.target.value
                                 )
                               }
@@ -261,7 +269,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Origen de los fondos"
-                            name="sourcefunds"
+                            name="OrigenFondos"
                             rules={[
                               {
                                 required: true,
@@ -273,7 +281,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               placeholder="Ingresa el Origen de los fondos"
                               onChange={(e) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "sourcefunds",
+                                  "OrigenFondos",
                                   e.target.value
                                 )
                               }
@@ -284,7 +292,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Destino de los fondos"
-                            name="destinationfunds"
+                            name="DestinoFondos"
                             rules={[
                               {
                                 required: true,
@@ -296,7 +304,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               placeholder="Ingresa el Destino de los fondos"
                               onChange={(e) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "destinationfunds",
+                                  "DestinoFondos",
                                   e.target.value
                                 )
                               }

@@ -9,7 +9,7 @@ const CIForm = () => {
 
   const onFinish = (values) => {
     console.log(values);
-    ChangeCIorPassport(values);
+    ChangeCIorPassport(values.cedula);
     navigate("/FormMeetClient");
   };
 
@@ -38,7 +38,7 @@ const CIForm = () => {
             >
               <Form.Item
                 label="Identificacion"
-                name="CIorPassport"
+                name="cedula"
                 rules={[
                   {
                     required: true,

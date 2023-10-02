@@ -33,18 +33,18 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
   };
 
   const initialValues = {
-    Apellidos: dataGeneralInfo?.Apellidos,
+    Apellidos: dataGeneralInfo?.Apellido1,
     Nombres: dataGeneralInfo?.Nombres,
     Nacionalidad: dataGeneralInfo?.Nacionalidad,
     Identificacion: dataGeneralInfo?.Identificacion,
-    FechaNacimiento: moment("2022-09-01T00:00:00"),
-    Genero: "F",
-    EstadoCivil: "Casado",
-    Profesion: dataGeneralInfo?.Direcciones?.Profesion,
-    Pais: dataGeneralInfo?.Direcciones?.Pais,
-    Provincia: dataGeneralInfo?.Direcciones?.Provincia,
-    Ciudad: dataGeneralInfo?.Direcciones?.Ciudad,
-    Direccion: dataGeneralInfo?.Direcciones?.Direccion,
+    //FechaNacimiento: dataGeneralInfo?.FechaNacimiento,
+    Genero: dataGeneralInfo?.Genero,
+    EstadoCivil: dataGeneralInfo?.EstadoCivil,
+    Profesion: dataGeneralInfo?.Profesion,
+    Pais: dataGeneralInfo?.Pais,
+    Provincia: dataGeneralInfo?.Provincia,
+    Ciudad: dataGeneralInfo?.Ciudad,
+    Direccion: dataGeneralInfo?.Direccion,
     //TiempoResidencia: dataGeneralInfo?.Profesion,
     Celular: dataGeneralInfo?.Celular,
   };
