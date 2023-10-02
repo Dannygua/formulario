@@ -9,6 +9,7 @@ import {
   Button,
   Radio,
 } from "antd";
+import moment from "moment";
 import "../css/GeneralInfoForm.css";
 import { useGeneralVariables } from "../hooks/GeneralContext";
 import { useEffect, useState } from "react";
@@ -32,8 +33,20 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
   };
 
   const initialValues = {
-    lastname: dataGeneralInfo?.Apellidos, // Valor inicial para el campo 'nombre'
-    firstname: dataGeneralInfo?.Nombres, // Valor inicial para el campo 'correo'
+    Apellidos: dataGeneralInfo?.Apellidos,
+    Nombres: dataGeneralInfo?.Nombres,
+    Nacionalidad: dataGeneralInfo?.Nacionalidad,
+    Identificacion: dataGeneralInfo?.Identificacion,
+    FechaNacimiento: moment("2022-09-01T00:00:00"),
+    Genero: "F",
+    EstadoCivil: "Casado",
+    Profesion: dataGeneralInfo?.Direcciones?.Profesion,
+    Pais: dataGeneralInfo?.Direcciones?.Pais,
+    Provincia: dataGeneralInfo?.Direcciones?.Provincia,
+    Ciudad: dataGeneralInfo?.Direcciones?.Ciudad,
+    Direccion: dataGeneralInfo?.Direcciones?.Direccion,
+    //TiempoResidencia: dataGeneralInfo?.Profesion,
+    Celular: dataGeneralInfo?.Celular,
   };
 
   const CatalogController = new Catalog();
@@ -87,7 +100,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   {" "}
                   <Form.Item
                     label="Apellido"
-                    name="lastname"
+                    name="Apellidos"
                     rules={[
                       {
                         required: true,
@@ -99,7 +112,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                       placeholder="Ingresa tus apellidos"
                       onChange={(e) => {
                         handleInputChangeGeneralInfoForm(
-                          "lastname",
+                          "Apellidos",
                           e.target.value
                         );
                       }}
@@ -110,7 +123,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   {" "}
                   <Form.Item
                     label="Nombre"
-                    name="firstname"
+                    name="Nombres"
                     rules={[
                       {
                         required: true,
@@ -122,7 +135,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                       placeholder="Ingresa tus nombres"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
-                          "firstname",
+                          "Nombres",
                           e.target.value
                         )
                       }
@@ -136,7 +149,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   {" "}
                   <Form.Item
                     label="Nacionalidad"
-                    name="nationality"
+                    name="Nacionalidad"
                     rules={[
                       {
                         required: true,
@@ -148,7 +161,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                       placeholder="Selecciona tu nacionalidad"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
-                          "nationality",
+                          "Nacionalidad",
                           e.target.value
                         )
                       }
@@ -159,7 +172,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   {" "}
                   <Form.Item
                     label="CI / Pasaporte"
-                    name="passport"
+                    name="Identificacion"
                     rules={[
                       {
                         required: true,
@@ -171,7 +184,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                       placeholder="Ingresa tu CI/ Pasaporte"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
-                          "passport",
+                          "Identificacion",
                           e.target.value
                         )
                       }
@@ -186,7 +199,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   {" "}
                   <Form.Item
                     label="Fecha de nacimiento"
-                    name="birthdate"
+                    name="FechaNacimiento"
                     rules={[
                       {
                         required: true,
@@ -197,7 +210,10 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                     <DatePicker
                       className="DataPickerClass"
                       onChange={(value) =>
-                        handleInputChangeGeneralInfoForm("birthdate", value)
+                        handleInputChangeGeneralInfoForm(
+                          "FechaNacimiento",
+                          value
+                        )
                       }
                     />
                   </Form.Item>
@@ -206,7 +222,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   {" "}
                   <Form.Item
                     label="Genero"
-                    name="gender"
+                    name="Genero"
                     className="formradiojob"
                     rules={[
                       {
@@ -218,15 +234,15 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                     <Radio.Group
                       onChange={(value) =>
                         handleInputChangeGeneralInfoForm(
-                          "gender",
+                          "Genero",
                           value.target.value
                         )
                       }
                     >
-                      <Radio className="radioGeneral" value="Masculino">
+                      <Radio className="radioGeneral" value="M">
                         Masculino
                       </Radio>
-                      <Radio value="Femenino"> Femenino </Radio>
+                      <Radio value="F"> Femenino </Radio>
                     </Radio.Group>
                   </Form.Item>
                 </Col>
@@ -237,7 +253,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   {" "}
                   <Form.Item
                     label="Estado civil"
-                    name="civilstate"
+                    name="EstadoCivil"
                     rules={[
                       {
                         required: true,
@@ -248,7 +264,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                     <Select
                       placeholder="Ingresa tu Estado Civil"
                       onChange={(value) =>
-                        handleInputChangeGeneralInfoForm("civilstate", value)
+                        handleInputChangeGeneralInfoForm("EstadoCivil", value)
                       }
                     >
                       <Select.Option value="Casado">Casado</Select.Option>
@@ -260,7 +276,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   {" "}
                   <Form.Item
                     label="Profesión"
-                    name="profession"
+                    name="Profesion"
                     rules={[
                       {
                         required: true,
@@ -272,7 +288,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                       placeholder="Ingresa tu Profesion"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
-                          "profession",
+                          "Profesion",
                           e.target.value
                         )
                       }
@@ -286,7 +302,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   {" "}
                   <Form.Item
                     label="Pais"
-                    name="country"
+                    name="Pais"
                     rules={[
                       {
                         required: true,
@@ -315,10 +331,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                           setProvinceCatalog,
                           ChangeLoadingGeneralInfo
                         );
-                        handleInputChangeGeneralInfoForm(
-                          "country",
-                          key.children
-                        );
+                        handleInputChangeGeneralInfoForm("Pais", key.children);
                       }}
                     >
                       {countryCatalogg.map((country) => (
@@ -336,7 +349,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   {" "}
                   <Form.Item
                     label="Provincia"
-                    name="province"
+                    name="Provincia"
                     // rules={[
                     //   {
                     //     required: true,
@@ -354,7 +367,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                         Nivel={4}
                         idCatalogo={13}
                         namelabel="Provincia"
-                        namevalue="province"
+                        namevalue="Provincia"
                         setDataCalatog={setCityCatalog}
                         handleInputChangeGeneralInfoForm={
                           handleInputChangeGeneralInfoForm
@@ -372,7 +385,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   {" "}
                   <Form.Item
                     label="Ciudad"
-                    name="city"
+                    name="Ciudad"
                     // rules={[
                     //   {
                     //     required: true,
@@ -390,7 +403,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                         Nivel={5}
                         idCatalogo={13}
                         namelabel="Ciudad"
-                        namevalue="city"
+                        namevalue="Ciudad"
                         // setDataCalatog={setCityCatalog}
                         handleInputChangeGeneralInfoForm={
                           handleInputChangeGeneralInfoForm
@@ -408,7 +421,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                       span: 23,
                     }}
                     label="Dirección de domicilio"
-                    name="homeAddress"
+                    name="Direccion"
                     rules={[
                       {
                         required: true,
@@ -420,7 +433,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                       placeholder="Ingresa tu domicilio"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
-                          "homeAddress",
+                          "Direccion",
                           e.target.value
                         )
                       }
@@ -434,7 +447,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   {" "}
                   <Form.Item
                     label="Tiempo de residencia"
-                    name="residenceTime"
+                    name="TiempoResidencia"
                     rules={[
                       {
                         required: true,
@@ -446,7 +459,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                       placeholder="Ingresa tu residencia"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
-                          "residenceTime",
+                          "TiempoResidencia",
                           e.target.value
                         )
                       }
@@ -457,7 +470,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   {" "}
                   <Form.Item
                     label="Teléfono celular"
-                    name="phoneNumber"
+                    name="Celular"
                     rules={[
                       {
                         required: true,
@@ -469,7 +482,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                       placeholder="Ingresa tu numero de teléfono"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
-                          "phoneNumber",
+                          "Celular",
                           e.target.value
                         )
                       }

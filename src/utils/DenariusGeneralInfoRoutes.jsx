@@ -1,4 +1,4 @@
-const SERVER_IP = "20.242.65.100:40352/api/Cliente";
+const SERVER_IP = "20.242.65.100:40352/api/LlamadaDatosCliente";
 
 export const ENVDENARIUSGENERALINFO = {
   BASE_PATH: `http://${SERVER_IP}`,

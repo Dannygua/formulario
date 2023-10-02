@@ -10,18 +10,19 @@ export const fetchDataReference = async ({ CIorPassport }) => {
   console.log(CIorPassport);
   //console.log("se envia a la URL - Ruta: DenariudGeneralInfoMethods");
   //console.log(baseApi);
-  const url = `${baseApi}?cedula=${CIorPassport}`;
+  const url = `${baseApi}`;
   // const params = {
   //   method: "POST",
   //   headers: {
   //     "Content-Type": "application/json",
   //   },
-  //   body: JSON.stringify(IDData),
+  //   body: "1712206398",
+  //   // body: JSON.stringify(CIorPassport),
   // };
   try {
-    const response = await fetch(url, {
-      method: "GET",
-    });
+    const response = await fetch(
+      "http://20.242.65.100:40352/api/LlamadaDatosCliente"
+    );
 
     if (!response.ok) {
       throw new Error(`Error HTTP: ${response.status}`);
