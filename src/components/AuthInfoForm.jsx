@@ -3,6 +3,7 @@ import { useGeneralVariables } from "../hooks/GeneralContext";
 import "../css/GeneralInfoForm.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchDataUpdate } from "../hooks/useSendForm";
 
 const AuthInfoForm = ({ goToSlideCarusel }) => {
   const {
@@ -46,7 +47,7 @@ const AuthInfoForm = ({ goToSlideCarusel }) => {
       ...formDataAuthInfo,
     };
     ChangeDatatoUpdate(combinedData);
-    console.log(DatatoUpdate);
+    fetchDataUpdate(combinedData);
     // navigate("/");
   };
 

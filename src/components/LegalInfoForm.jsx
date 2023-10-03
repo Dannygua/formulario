@@ -27,12 +27,12 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
   }, [formDataMoneyInfo]);
 
   const initialValues = {
-    Institucion: dataGeneralInfo?.Institucion,
+    // Institucion: dataGeneralInfo?.Institucion,
     // TipoCuenta: dataGeneralInfo?.TipoCuenta,
     NumeroCuentaAHO: dataGeneralInfo?.NumeroCuentaAHO,
     EsFuncionario: dataGeneralInfo?.EsFuncionario,
     // NombreFuncionario: dataGeneralInfo?.NombreFuncionario,
-    // EsPartidoPolitico: dataGeneralInfo?.EsPartidoPolitico,
+    PEP: dataGeneralInfo?.PEP,
     // NombrePartidoPolitico: dataGeneralInfo?.NombrePartidoPolitico,
     // NombrePartidoPolitico: dataGeneralInfo?.NombrePartidoPolitico,
     // OrigenFondos: dataGeneralInfo?.NombrePartidoPolitico,
@@ -40,7 +40,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
   };
 
   const onFinish = (values) => {
-    ChangeFormLegalInfo(values);
+    ChangeFormLegalInfo({});
     goToSlideCarusel(3);
   };
 
@@ -84,7 +84,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                       layout="vertical"
                     >
                       <Row gutter={16}>
-                        <Col span={24} xs={24} sm={24} md={24} lg={24} xl={24}>
+                        {/* <Col span={24} xs={24} sm={24} md={24} lg={24} xl={24}>
                           <Form.Item
                             label="Nombre de la Institución"
                             name="Institucion"
@@ -105,8 +105,8 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               }
                             />
                           </Form.Item>
-                        </Col>
-                        <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
+                        </Col> */}
+                        {/* <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Tipo de cuenta"
                             name="TipoCuenta"
@@ -132,7 +132,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               <Radio value="Corriente"> Corriente </Radio>
                             </Radio.Group>
                           </Form.Item>
-                        </Col>
+                        </Col> */}
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="No. de cuenta"
@@ -184,15 +184,15 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                                 )
                               }
                             >
-                              <Radio className="radioGeneral" value="SI">
+                              <Radio className="radioGeneral" value={true}>
                                 SI
                               </Radio>
-                              <Radio value="NO"> NO </Radio>
+                              <Radio value={false}> NO </Radio>
                             </Radio.Group>
                           </Form.Item>
                         </Col>
 
-                        <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
+                        {/* <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Nombre del Funcionario Publico"
                             name="NombreFuncionario"
@@ -213,12 +213,12 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               }
                             />
                           </Form.Item>
-                        </Col>
+                        </Col> */}
 
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Miembro de algún partido político"
-                            name="EsPartidoPolitico"
+                            name="PEP"
                             className="formradiojob"
                             rules={[
                               {
@@ -230,20 +230,20 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                             <Radio.Group
                               onChange={(value) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "EsPartidoPolitico",
+                                  "PEP",
                                   value.target.value
                                 )
                               }
                             >
-                              <Radio className="radioGeneral" value="SI">
+                              <Radio className="radioGeneral" value={true}>
                                 SI
                               </Radio>
-                              <Radio value="NO"> NO </Radio>
+                              <Radio value={false}> NO </Radio>
                             </Radio.Group>
                           </Form.Item>
                         </Col>
 
-                        <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
+                        {/* <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Nombre del partido político"
                             name="NombrePartidoPolitico"
@@ -264,8 +264,8 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               }
                             />
                           </Form.Item>
-                        </Col>
-
+                        </Col> */}
+                        {/* 
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Origen de los fondos"
@@ -287,9 +287,9 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               }
                             />
                           </Form.Item>
-                        </Col>
+                        </Col> */}
 
-                        <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
+                        {/* <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Destino de los fondos"
                             name="DestinoFondos"
@@ -310,7 +310,7 @@ const LegalInfoForm = ({ goToSlideCarusel }) => {
                               }
                             />
                           </Form.Item>
-                        </Col>
+                        </Col> */}
                         <Col span={24} xs={24} sm={24} md={24} lg={24} xl={24}>
                           <Form.Item
                             name="disabled"

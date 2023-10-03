@@ -2,12 +2,10 @@ import { ENVDENARIUSGENERALINFO } from "../utils/DenariusGeneralInfoRoutes";
 const baseApi = ENVDENARIUSGENERALINFO.BASE_PATH;
 
 // export class DenariusGeneralInfo {
-export const fetchDataReference = async (cedula) => {
+export const fetchDataUpdate = async (NewData) => {
   // descomentar para ver la informacion que se envia a la api Denarius
-  console.log(
-    "Datos Enviados a Denarius mediante POST - Ruta: DenariudGeneralInfoMethods"
-  );
-  console.log(cedula);
+  console.log("Datos Enviados a Denarius mediante POST - Ruta: useSendForm");
+  console.log(NewData);
   //console.log("se envia a la URL - Ruta: DenariudGeneralInfoMethods");
   //console.log(baseApi);
   const url = `${baseApi}`;
@@ -16,7 +14,7 @@ export const fetchDataReference = async (cedula) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(cedula),
+    body: JSON.stringify(NewData),
   };
   try {
     const response = await fetch(url, params);

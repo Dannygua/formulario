@@ -30,13 +30,16 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
     TipoActividad: dataGeneralInfo?.TipoActividad,
     // IngresoMensual: dataGeneralInfo?.IngresoMensual,
     TotalActivos: dataGeneralInfo?.TotalActivos,
-    TotalPasivos: dataGeneralInfo?.TotalPasivos,
+    TotalGastos: dataGeneralInfo?.TotalGastos,
     // IngresosMensuales: dataGeneralInfo?.IngresosMensuales,
     // EgresosMensuales: dataGeneralInfo?.EgresosMensuales,
   };
 
   const onFinish = (values) => {
-    ChangeFormDataMoneyInfo(values);
+    ChangeFormDataMoneyInfo({
+      TotalActivos: values.TotalActivos,
+      TotalGastos: values.TotalGastos,
+    });
     goToSlideCarusel(2);
   };
 
@@ -80,7 +83,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                       layout="vertical"
                     >
                       <Row gutter={16}>
-                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                        {/* <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                           <Form.Item
                             label="Tipo de empleo"
                             name="TipoActividad"
@@ -117,8 +120,8 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                               </Radio>
                             </Radio.Group>
                           </Form.Item>
-                        </Col>
-                        <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
+                        </Col> */}
+                        {/* <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Ingreso Mensual"
                             name="IngresoMensual"
@@ -139,7 +142,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                               }
                             />
                           </Form.Item>
-                        </Col>
+                        </Col> */}
                         <Col span={1} xs={24} sm={24} md={24} lg={24} xl={24}>
                           <Form.Item className="TitleCardSecundary">
                             <span className="TitleCardSecundary">
@@ -161,6 +164,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                             ]}
                           >
                             <Input
+                              type="number"
                               placeholder="Ingresa el Total Activos"
                               onChange={(e) =>
                                 handleInputChangeGeneralInfoForm(
@@ -173,8 +177,8 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                         </Col>
                         <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
-                            label="Total Pasivos"
-                            name="TotalPasivos"
+                            label="Total Gastos"
+                            name="TotalGastos"
                             rules={[
                               {
                                 required: true,
@@ -183,17 +187,18 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                             ]}
                           >
                             <Input
+                              type="number"
                               placeholder="Ingresa el Total Pasivos"
                               onChange={(e) =>
                                 handleInputChangeGeneralInfoForm(
-                                  "TotalPasivos",
+                                  "TotalGastos",
                                   e.target.value
                                 )
                               }
                             />
                           </Form.Item>
                         </Col>
-                        <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
+                        {/* <Col span={12} xs={24} sm={12} md={12} lg={12} xl={12}>
                           <Form.Item
                             label="Egresos Mensuales"
                             name="EgresosMensuales"
@@ -214,7 +219,7 @@ const EcononyInfoForm = ({ goToSlideCarusel }) => {
                               }
                             />
                           </Form.Item>
-                        </Col>
+                        </Col> */}
                         <Col span={12} xs={15} sm={24} md={24} lg={24} xl={24}>
                           <Form.Item wrapperCol={{ offset: 6, span: 10 }}>
                             <Button

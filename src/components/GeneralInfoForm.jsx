@@ -33,20 +33,19 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
   };
 
   const initialValues = {
-    Apellidos: dataGeneralInfo?.Apellido1,
+    Apellidos: dataGeneralInfo?.Apellidos,
     Nombres: dataGeneralInfo?.Nombres,
-    Nacionalidad: dataGeneralInfo?.Nacionalidad,
-    Identificacion: dataGeneralInfo?.Identificacion,
-    //FechaNacimiento: dataGeneralInfo?.FechaNacimiento,
-    Genero: dataGeneralInfo?.Genero,
-    EstadoCivil: dataGeneralInfo?.EstadoCivil,
     Profesion: dataGeneralInfo?.Profesion,
+    Identificacion: dataGeneralInfo?.Identificacion,
+    FechaNacimiento: moment(dataGeneralInfo?.FechaNacimiento),
+    Genero: dataGeneralInfo?.Genero,
+    Celular: dataGeneralInfo?.Celular,
+    Email: dataGeneralInfo?.Email,
     Pais: dataGeneralInfo?.Pais,
     Provincia: dataGeneralInfo?.Provincia,
     Ciudad: dataGeneralInfo?.Ciudad,
     Direccion: dataGeneralInfo?.Direccion,
-    //TiempoResidencia: dataGeneralInfo?.Profesion,
-    Celular: dataGeneralInfo?.Celular,
+    //TiempoResidencia: dataGeneralInfo?.TiempoResidencia,
   };
 
   const CatalogController = new Catalog();
@@ -65,9 +64,17 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
   };
 
   const onFinish = (values) => {
-    ChangeFormDataGeneralInfo(values);
+    ChangeFormDataGeneralInfo({
+      Email: values.Email,
+      FechaNacimiento: values.FechaNacimiento._i,
+      Celular: values.Celular,
+      Pais: values.Pais,
+      Provincia: values.Provincia,
+      Direccion: values.Direccion,
+    });
     goToSlideCarusel(1);
   };
+
   return (
     <div>
       <div className="container">
@@ -148,20 +155,20 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                 <Col span={12}>
                   {" "}
                   <Form.Item
-                    label="Nacionalidad"
-                    name="Nacionalidad"
+                    label="Email"
+                    name="Email"
                     rules={[
                       {
                         required: true,
-                        message: "Nacionalidad requerida",
+                        message: "Email requerido",
                       },
                     ]}
                   >
                     <Input
-                      placeholder="Selecciona tu nacionalidad"
+                      placeholder="Ingresa tu Email"
                       onChange={(e) =>
                         handleInputChangeGeneralInfoForm(
-                          "Nacionalidad",
+                          "Email",
                           e.target.value
                         )
                       }
@@ -252,24 +259,25 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                 <Col span={12}>
                   {" "}
                   <Form.Item
-                    label="Estado civil"
-                    name="EstadoCivil"
+                    label="Celular"
+                    name="Celular"
                     rules={[
                       {
                         required: true,
-                        message: "Estado civil requerido",
+                        message: "Celular requerido",
                       },
                     ]}
                   >
-                    <Select
-                      placeholder="Ingresa tu Estado Civil"
-                      onChange={(value) =>
-                        handleInputChangeGeneralInfoForm("EstadoCivil", value)
+                    <Input
+                      type="number"
+                      placeholder="Ingresa tu Celular"
+                      onChange={(e) =>
+                        handleInputChangeGeneralInfoForm(
+                          "Celular",
+                          e.target.value
+                        )
                       }
-                    >
-                      <Select.Option value="Casado">Casado</Select.Option>
-                      <Select.Option value="Soltero">Soltero</Select.Option>
-                    </Select>
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={12}>
@@ -381,7 +389,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
               </Row>
 
               <Row gutter={16}>
-                <Col span={12}>
+                {/* <Col span={12}>
                   {" "}
                   <Form.Item
                     label="Ciudad"
@@ -412,7 +420,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                       />
                     )}
                   </Form.Item>
-                </Col>
+                </Col> */}
 
                 <Col span={12}>
                   {" "}
@@ -441,7 +449,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                   </Form.Item>
                 </Col>
               </Row>
-
+              {/* 
               <Row gutter={16}>
                 <Col span={12}>
                   {" "}
@@ -489,7 +497,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                     />
                   </Form.Item>
                 </Col>
-              </Row>
+              </Row> */}
               <Form.Item wrapperCol={{ offset: 6, span: 10 }}>
                 <Button
                   className="custom-button"

@@ -12,7 +12,7 @@ function App() {
           <Routes>
             <Route path="/" element={<CIForm />} />
             <Route
-              path="FormMeetClient"
+              path="/FormMeetClient"
               element={<MeetClientPrincipalForm />}
             />
           </Routes>
