@@ -50,6 +50,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
 
   const CatalogController = new Catalog();
   const [provinceCatalog, setProvinceCatalog] = useState({});
+  const [actividadCatalog, setActividadCatalog] = useState({});
   const [cityCatalog, setCityCatalog] = useState({});
   const [cityLoading, setCityLoading] = useState(true);
 
@@ -64,11 +65,17 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
   };
 
   const onFinish = (values) => {
+    const datoFiltrado = countryCatalogg.filter(
+      (item) => item.Descripcion === "Ecuador"
+    );
+
+    console.log(countryCatalogg);
+    console.log(datoFiltrado[0].IdDetalleCatalogo);
     ChangeFormDataGeneralInfo({
       Email: values.Email,
       FechaNacimiento: values.FechaNacimiento._i,
       Celular: values.Celular,
-      Pais: values.Pais,
+      Pais: datoFiltrado[0].IdDetalleCatalogo,
       Provincia: values.Provincia,
       Direccion: values.Direccion,
     });
@@ -421,6 +428,57 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                     )}
                   </Form.Item>
                 </Col> */}
+
+                <Col span={12}>
+                  {" "}
+                  <Form.Item
+                    label="Actividad"
+                    name="Actividad"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Actividad requerido",
+                      },
+                    ]}
+                  >
+                    <Select
+                      showSearch // Habilita la búsqueda
+                      optionFilterProp="children" // Propiedad para filtrar las opciones
+                      filterOption={(input, option) =>
+                        option.children
+                          .toLowerCase()
+                          .indexOf(input.toLowerCase()) >= 0
+                      }
+                      placeholder="Ingresa tu Actividad"
+                      onChange={(value, key) => {
+                        ChangeCatalog(
+                          {
+                            token_id:
+                              "P6C917uy64vZORdyh2aWqBTLDxZMl0WfFEYwFEoQxMtczD3JUWVjO6fvZf0yfYz0",
+                            Nivel: 2,
+                            idCatalogo: 49,
+                            CodigoPadre: value,
+                          },
+                          setProvinceCatalog,
+                          ChangeLoadingGeneralInfo
+                        );
+                        handleInputChangeGeneralInfoForm(
+                          "Actividad",
+                          key.children
+                        );
+                      }}
+                    >
+                      {countryCatalogg.map((country) => (
+                        <Select.Option
+                          key={country.Descripcion}
+                          value={country.IdDetalleCatalogo}
+                        >
+                          {country.Descripcion}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                </Col>
 
                 <Col span={12}>
                   {" "}
