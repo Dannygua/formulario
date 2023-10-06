@@ -459,7 +459,7 @@ const GeneralInfoForm = ({ goToSlideCarusel, countryCatalogg }) => {
                             idCatalogo: 49,
                             CodigoPadre: value,
                           },
-                          setProvinceCatalog,
+                          setActividadCatalog,
                           ChangeLoadingGeneralInfo
                         );
                         handleInputChangeGeneralInfoForm(
